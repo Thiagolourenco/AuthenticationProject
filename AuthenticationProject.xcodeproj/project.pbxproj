@@ -14,8 +14,8 @@
 		81094DD82BA1D54C0095D5B2 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 81094DD72BA1D54C0095D5B2 /* Lottie */; };
 		81094DDA2BA1D8010095D5B2 /* animationLogin.json in Resources */ = {isa = PBXBuildFile; fileRef = 81094DD92BA1D8010095D5B2 /* animationLogin.json */; };
 		81094DDC2BA1D8110095D5B2 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81094DDB2BA1D8110095D5B2 /* LottieView.swift */; };
-		81094DE02BA1E0680095D5B2 /* animationLoginOne.json in Resources */ = {isa = PBXBuildFile; fileRef = 81094DDF2BA1E0680095D5B2 /* animationLoginOne.json */; };
 		81094DE22BA1E32A0095D5B2 /* animationLoginTwo.json in Resources */ = {isa = PBXBuildFile; fileRef = 81094DE12BA1E3290095D5B2 /* animationLoginTwo.json */; };
+		81094DE52BA20DA50095D5B2 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81094DE42BA20DA50095D5B2 /* SignUpView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,8 +27,9 @@
 		81094DD42BA10AC20095D5B2 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		81094DD92BA1D8010095D5B2 /* animationLogin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = animationLogin.json; path = ../../../../../../../Downloads/animationLogin.json; sourceTree = "<group>"; };
 		81094DDB2BA1D8110095D5B2 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
-		81094DDF2BA1E0680095D5B2 /* animationLoginOne.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = animationLoginOne.json; path = ../../../../../../../Downloads/animationLoginOne.json; sourceTree = "<group>"; };
 		81094DE12BA1E3290095D5B2 /* animationLoginTwo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = animationLoginTwo.json; path = ../../../../../../../Downloads/animationLoginTwo.json; sourceTree = "<group>"; };
+		81094DE32BA20D930095D5B2 /* animationLogin.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = animationLogin.json; sourceTree = "<group>"; };
+		81094DE42BA20DA50095D5B2 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +111,6 @@
 			children = (
 				81094DD92BA1D8010095D5B2 /* animationLogin.json */,
 				81094DE12BA1E3290095D5B2 /* animationLoginTwo.json */,
-				81094DDF2BA1E0680095D5B2 /* animationLoginOne.json */,
 				81094DD42BA10AC20095D5B2 /* SignInView.swift */,
 			);
 			path = SignInScreen;
@@ -119,6 +119,8 @@
 		81094DD32BA10AAC0095D5B2 /* SignUpScreen */ = {
 			isa = PBXGroup;
 			children = (
+				81094DE32BA20D930095D5B2 /* animationLogin.json */,
+				81094DE42BA20DA50095D5B2 /* SignUpView.swift */,
 			);
 			path = SignUpScreen;
 			sourceTree = "<group>";
@@ -188,7 +190,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				81094DC82BA10A550095D5B2 /* Preview Assets.xcassets in Resources */,
-				81094DE02BA1E0680095D5B2 /* animationLoginOne.json in Resources */,
 				81094DC42BA10A550095D5B2 /* Assets.xcassets in Resources */,
 				81094DE22BA1E32A0095D5B2 /* animationLoginTwo.json in Resources */,
 				81094DDA2BA1D8010095D5B2 /* animationLogin.json in Resources */,
@@ -202,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81094DE52BA20DA50095D5B2 /* SignUpView.swift in Sources */,
 				81094DD52BA10AC20095D5B2 /* SignInView.swift in Sources */,
 				81094DC02BA10A540095D5B2 /* AuthenticationProjectApp.swift in Sources */,
 				81094DDC2BA1D8110095D5B2 /* LottieView.swift in Sources */,

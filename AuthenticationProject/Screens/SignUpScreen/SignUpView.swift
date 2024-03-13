@@ -1,33 +1,68 @@
 //
-//  SignInView.swift
+//  SignUpView.swift
 //  AuthenticationProject
 //
-//  Created by Thiago Lourenço on 12/03/24.
+//  Created by Thiago Lourenço on 13/03/24.
 //
 
 import SwiftUI
 
-struct SignInView: View {
-    @State var name: String = ""
+struct SignUpView: View {
+    @State var username: String = ""
+    @State var email: String = ""
     @State var password: String = ""
     @State private var isChecked: Bool = false
-    
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
                 
                 VStack {
-                    LottieView(animationFileName: "animationLoginTwo", loopMode: .loop)
-                        .scaleEffect(0.095)
+                    LottieView(animationFileName: "animationLogin", loopMode: .loop)
+                        .scaleEffect(0.6)
                         .frame(width: 100, height: 100)
                 }
                         
                 
                 Spacer()
-                Text("Welcome back!")
+                Text("Become a member")
                     .font(.title)
                     .bold()
+                    .padding(.top, 32)
+                
+                
+                VStack(alignment: .leading) {
+                    
+                    Text("Your name")
+                        .font(.caption2)
+                        .foregroundStyle(.gray.opacity(0.6))
+
+                    
+                    HStack {
+                        TextField(text: $email) {
+                            Text("Enter your name")
+                                .font(.caption2)
+                            
+                        }
+                        .font(.caption2)
+                        .foregroundStyle(.black.opacity(0.6))
+                        .textInputAutocapitalization(TextInputAutocapitalization.never)
+                        .padding(.leading, 8)
+                        
+                        Image(systemName: "person")
+                            .foregroundStyle(.gray)
+                            .padding(.trailing, 8)
+                    }
+                    .frame(width: 300, height: 40)
+                    .background(.gray.opacity(0.1))
+                    .border(Color.gray.opacity(0.2), width: 1)
+                    .cornerRadius(6)
+              
+                }
+                .padding(.top, 16)
+
                 
                 VStack(alignment: .leading) {
                     
@@ -37,7 +72,7 @@ struct SignInView: View {
 
                     
                     HStack {
-                        TextField(text: $name) {
+                        TextField(text: $email) {
                             Text("Enter your email")
                                 .font(.caption2)
                             
@@ -57,25 +92,13 @@ struct SignInView: View {
                     .cornerRadius(6)
               
                 }
-                .padding(.top, 16)
+                .padding(.top, 8)
                 
-                VStack() {
-                    HStack {
-                        Text("Password")
-                            .font(.caption2)
-                            .foregroundStyle(.gray.opacity(0.6))
-                        Spacer()
-                        Text("Forgot password?")
-                            .font(.caption2)
-                            .foregroundStyle(.black.opacity(0.6))
-                            .underline()
-
-                    }
-                    .padding(.leading, 46)
-                    .padding(.trailing, 46)
-               
-
-                    
+                VStack(alignment: .leading) {
+                    Text("Password")
+                        .font(.caption2)
+                        .foregroundStyle(.gray.opacity(0.6))
+                
                     HStack {
                         SecureField(text: $password) {
                             Text("Enter your password")
@@ -97,21 +120,7 @@ struct SignInView: View {
                     .cornerRadius(6)
                 }
                 .padding(.top, 6)
-                
-                Button {
-                    isChecked.toggle()
-                } label: {
-                    HStack() {
-                        Image(systemName: isChecked ? "checkmark.square.fill" : "square")
-                                
-                        Text("Remember me")
-                            .font(.caption)
-                            .foregroundStyle(.black)
-                    }
-                }
-                .padding([.top], 6)
-                .padding([.leading], -146)
-                
+              
                 HStack {
                     Button {
                         
@@ -131,17 +140,20 @@ struct SignInView: View {
                     Button {
                         
                     } label: {
-                        Image("facebook")
+                            Image("facebook")
                             .resizable(capInsets: EdgeInsets(.zero))
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 24, height: 24)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .frame(width: 50, height: 50)
-                                    .foregroundColor(.gray.opacity(0.1))
-                                    .border(.gray.opacity(0.2), width: 0.5)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                            )
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 24, height: 24)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .frame(width: 50, height: 50)
+                                        .foregroundColor(.gray.opacity(0.1))
+                                        .border(.gray.opacity(0.2), width: 0.5)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                )
+
+                            
+                        
                     }
                     .padding(.leading, 32)
                     .padding(.trailing, 32)
@@ -163,14 +175,13 @@ struct SignInView: View {
                             )
                     }
                 }
-                .padding(.top)
+                .padding(.top, 32)
                 
-                Spacer()
                 Button {
                     print("Login")
                 } label: {
                     HStack {
-                        Text("Log in")
+                        Text("Create an account")
                             .font(.callout)
                             .foregroundStyle(.white)
                             .bold()
@@ -183,28 +194,30 @@ struct SignInView: View {
                     .shadow(color: .black, radius: 2)
 
                 }
+                .padding(.top, 32)
                 
-                NavigationLink {
-                    SignUpView()
-                } label: {
+                Button {
+                    mode.wrappedValue.dismiss()
+                }label: {
                     HStack {
-                        Text("Don't have an account ?")
+                        Text("Already have an account?")
                             .font(.caption2)
                             .foregroundStyle(Color("ButtonColor"))
                             .fontWeight(.semibold)
-                        Text("Sign up now")
+                        Text("Sign in.")
                             .font(.caption2)
                             .foregroundStyle(.blue)
                             .fontWeight(.semibold)
                     }
                     .padding(.top, 4)
                 }
+
             }
         }
-        
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 #Preview {
-    SignInView()
+    SignUpView()
 }
