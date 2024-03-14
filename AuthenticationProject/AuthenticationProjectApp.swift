@@ -20,10 +20,18 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct AuthenticationProjectApp: App {
+    @AppStorage("isSign") private var isSign: Bool = false
+
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-            SignInView()
+            
+            if isSign {
+                HomeView()
+            } else {
+                SignInView()
+            }
+        
         }
     }
 }

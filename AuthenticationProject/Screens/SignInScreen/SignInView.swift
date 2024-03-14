@@ -13,9 +13,10 @@ struct SignInView: View {
     @State var password: String = ""
     @State private var isChecked: Bool = false
     @State private var isLoading: Bool = false
+    @AppStorage("isSign") private var isSign: Bool = true
     
     var body: some View {
-        NavigationStack {
+        NavigationStack() {
             VStack {
                 Spacer()
                 
@@ -178,6 +179,7 @@ struct SignInView: View {
                         } else {
                             let userInfo = Auth.auth().currentUser
                             
+                            isSign = true
                             print("User Info", userInfo?.email)
                         }
                         
@@ -205,9 +207,14 @@ struct SignInView: View {
 
                 }
                 .disabled(isLoading)
+              
+                
+                
+                
                 
                 NavigationLink {
                     SignUpView()
+                        .transition(.move(edge: .top))
                 } label: {
                     HStack {
                         Text("Don't have an account ?")
