@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SignInView: View {
-    @State var name: String = ""
+    @State var email: String = ""
     @State var password: String = ""
     @State private var isChecked: Bool = false
+    @State private var isLoading: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -37,7 +39,7 @@ struct SignInView: View {
 
                     
                     HStack {
-                        TextField(text: $name) {
+                        TextField(text: $email) {
                             Text("Enter your email")
                                 .font(.caption2)
                             
@@ -167,15 +169,34 @@ struct SignInView: View {
                 
                 Spacer()
                 Button {
-                    print("Login")
+                    isLoading = true
+                    
+                    Auth.auth().signIn(withEmail: email, password: password) { (authResult, error) in
+                        isLoading = false
+                        if let error = error as? NSError {
+                            print("Deu Ruim")
+                        } else {
+                            let userInfo = Auth.auth().currentUser
+                            
+                            print("User Info", userInfo?.email)
+                        }
+                        
+                    }
                 } label: {
                     HStack {
-                        Text("Log in")
-                            .font(.callout)
-                            .foregroundStyle(.white)
-                            .bold()
-                        Image(systemName: "arrow.forward")
-                            .foregroundStyle(.white)
+                        if isLoading {
+                            ProgressView()
+                                .tint(.white)
+                        } else {
+                            Text("Log in")
+                                .font(.callout)
+                                .foregroundStyle(.white)
+                                .bold()
+                            Image(systemName: "arrow.forward")
+                                .foregroundStyle(.white)
+                          
+                        }
+                     
                     }
                     .frame(width: 300, height: 50)
                     .background(Color("ButtonColor"))
@@ -183,6 +204,7 @@ struct SignInView: View {
                     .shadow(color: .black, radius: 2)
 
                 }
+                .disabled(isLoading)
                 
                 NavigationLink {
                     SignUpView()
@@ -201,6 +223,8 @@ struct SignInView: View {
                 }
             }
         }
+        .navigationBarBackButtonHidden(true)
+
         
     }
 }

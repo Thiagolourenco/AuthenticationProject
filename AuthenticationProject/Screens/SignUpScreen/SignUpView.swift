@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SignUpView: View {
     @State var username: String = ""
@@ -13,11 +14,24 @@ struct SignUpView: View {
     @State var password: String = ""
     @State private var isChecked: Bool = false
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-
+    @State private var isPresented: Bool = false
+    @State private var isLoading: Bool = false
+    @State private var navigateToHome = false
+    
     var body: some View {
-        NavigationStack {
+        NavigationView {
             VStack {
                 Spacer()
+                
+                if navigateToHome {
+                    NavigationLink(
+                          destination: SignInView(),
+                          isActive: $navigateToHome
+                      ) {
+                          EmptyView()
+                      }
+                      .hidden()
+                }
                 
                 VStack {
                     LottieView(animationFileName: "animationLogin", loopMode: .loop)
@@ -41,7 +55,7 @@ struct SignUpView: View {
 
                     
                     HStack {
-                        TextField(text: $email) {
+                        TextField(text: $username) {
                             Text("Enter your name")
                                 .font(.caption2)
                             
@@ -178,15 +192,31 @@ struct SignUpView: View {
                 .padding(.top, 32)
                 
                 Button {
-                    print("Login")
+                    isLoading = true
+                    
+                    Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+                        isLoading = false
+                        
+                        if let error = error as? NSError {
+                            print("Deu Ruim")
+                        } else {
+                            isPresented = true
+                        }
+                    }
                 } label: {
                     HStack {
-                        Text("Create an account")
-                            .font(.callout)
-                            .foregroundStyle(.white)
-                            .bold()
-                        Image(systemName: "arrow.forward")
-                            .foregroundStyle(.white)
+                        if isLoading {
+                            ProgressView()
+                                .tint(.white)
+                        } else {
+                            Text("Create an account")
+                                .font(.callout)
+                                .foregroundStyle(.white)
+                                .bold()
+                            Image(systemName: "arrow.forward")
+                                .foregroundStyle(.white)
+                        }
+                      
                     }
                     .frame(width: 300, height: 50)
                     .background(Color("ButtonColor"))
@@ -213,8 +243,19 @@ struct SignUpView: View {
                 }
 
             }
+          
         }
         .navigationBarBackButtonHidden(true)
+        .sheet(isPresented: $isPresented , content: {
+            BottomSheetSucessView {
+                naivagationSuccess()
+            }
+        })
+    }
+    
+    func naivagationSuccess() {
+        isPresented = false
+        navigateToHome = true
     }
 }
 
